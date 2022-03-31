@@ -8,15 +8,13 @@ use App\Models\Category;
 use App\Models\Post;
 
 
-class IndexController extends Controller
+class ShowController extends Controller
 {
-    public function __invoke()
+    public function __invoke($id)
     {
-
         $category = Category::all();
-        $posts = Post::all();
+        $posts = Post::find($id);
 
-        
-        return view('post.index', compact('posts', 'category'));
+        return view('post.show', compact('posts', 'category'));
     }
 }

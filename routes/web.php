@@ -20,12 +20,18 @@ Route::get('/','WelcomeController@index')->name('welcome');
 
 Route::group(['namespace' => 'Post'], function(){
     Route::get('/post','IndexController')->name('posts.index');
+    Route::get('/post/show/{id}','ShowController')->name('posts.Show');
+    Route::delete('/post/show/{id}','ShowController')->name('posts.showdelete');
+    Route::patch('/post/show/{id}','ShowController')->name('posts.showpatch');
     Route::get('/fetch-post', 'FetchController')->name('posts.fetch');
     Route::post('/post', 'StoreController')->name('posts.store');
     Route::get('/post/{id}', 'EditController')->name('posts.edit');
+    Route::post('/post/search', 'SearchController')->name('posts.search');
     Route::patch('/post/{id}', 'UpdateController')->name('posts.update');
     Route::delete('/post/{id}', 'DestroyController')->name('posts.destroy');
 });
+
+
 
 
 Route::group(['namespace'=>'Admin', 'prefix'=>'admin', 'middleware'=>'admin'], function(){

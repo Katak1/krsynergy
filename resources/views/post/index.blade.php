@@ -73,7 +73,9 @@
 
     <div class="index_post">
 
+        
         <div class="container py-5">
+            <input type="text" id="search-posts" class="form-control mb-3" placeholder="Write the category to find the post">
             <div class="row">
                 <div class="col-md-12">
                     <div id="success_message"></div>
@@ -96,7 +98,7 @@
                                     <th scope="col">Delete</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="dynamic-row">
 
                                 </tbody>
                             </table>
@@ -319,6 +321,40 @@
                     }
                 })
 
+            });
+
+            $(document).on('keyup', '#search-posts', function(){
+                var searchQuest = $(this).val();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    method:'POST',
+                    url: 'post/search',
+                    dataType: 'json',
+                    data:{
+                        searchQuest:searchQuest
+                    },
+                    success:function(response){
+                        var tableRow = '';
+                        $('#dynamic-row').html('');
+                        $.each(response, function(key, item){
+                            tableRow = '<tr>\
+                                <th scope="row">'+item.id+'</th>\
+                            <td>'+item.title+'</td>\
+                            <td>'+item.content+'</td>\
+                            <td>'+item.category_id+'</td>\
+                            <td><button type="button" value="'+item.id+'" class="edit_posts btn btn-primary btn-small">Edit</button></td>\
+                            <td><button type="button" value="'+item.id+'" class="delete_posts btn btn-danger btn-small">Delete</button></td>\
+                        </tr>'
+
+                        $('#dynamic-row').append(tableRow);
+                        });
+                    }
+                })
             });
 
         });

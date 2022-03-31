@@ -34,12 +34,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('posts.index')}}">Posts</a>
                     </li>
-
-                    @if(auth()->user()->role=='admin')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('admin.index')}}">Admin</a>
-                        </li>
-                    @endif
+                    
 
                 </ul>
 
