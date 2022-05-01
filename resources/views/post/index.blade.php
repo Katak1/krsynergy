@@ -73,7 +73,7 @@
 
     <div class="index_post">
 
-        
+
         <div class="container py-5">
             <input type="text" id="search-posts" class="form-control mb-3" placeholder="Write the category to find the post">
             <div class="row">
@@ -99,6 +99,7 @@
                                 </tr>
                                 </thead>
                                 <tbody id="dynamic-row">
+
 
                                 </tbody>
                             </table>
@@ -167,7 +168,8 @@
                             <td>'+item.category_id+'</td>\
                             <td><button type="button" value="'+item.id+'" class="edit_posts btn btn-primary btn-small">Edit</button></td>\
                             <td><button type="button" value="'+item.id+'" class="delete_posts btn btn-danger btn-small">Delete</button></td>\
-                        </tr>')
+                            <td><a href="/post/show/'+item.id+'" class="btn btn-primary btn-small">Show</a></td>\
+                            </tr>')
                         })
                     }
                 })
