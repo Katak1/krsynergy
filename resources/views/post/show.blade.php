@@ -3,7 +3,6 @@
 
 <div class="index_post">
 
-        
         <div class="container py-5">
             <div class="row">
                 <div class="col-md-12">
@@ -30,26 +29,82 @@
                             </table>
                         </div>
                     </div>
-                    <div class="mt-3">
-                        <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Comment</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                        </div>
-                    </div>
+
+
+                        <form action="{{route('comm.store', $posts->id)}}" method="POST">
+                            @csrf
+                            <div class="form-group d-grid">
+                                <label for="comment">Comment</label>
+                                <textarea name="message" id="comment" class="form-control" placeholder="Write your message"></textarea>
+                            </div>
+                            <input type="submit" class="btn btn-primary create_comment mt-3">
+                        </form>
+
+                        <div class="mt-5"><h5>Comments</h5></div>
+                    <div class="card mt-3">
+
+                                @foreach($comment as $comments)
+                                    <div class="card bg-white p-2 px-4">
+                                     <div class="mt-2">
+                                            <div class="d-flex flex-row align-items-center">
+                                                <h5 class="mr-2">Author: {{$comments->user->name}}</h5>
+                                            </div>
+                                            <span>{{$comments->message}}</span>
+
+                                     </div>
+                                         <form action="{{route('comm.delete', [$posts->id, $comments->id])}}" method="POST">
+                                             @csrf
+                                             @method("DELETE")
+                                             <button type="submit" class="btn btn-primary mt-3">Delete</button>
+                                         </form>
+                                    </div>
+
+                             @endforeach
+
+                        <div>
+                </div>
                 </div>
             </div>
         </div>
-    </div>
 
 @endsection
 
-@section('script')
-    <script>
-        $(document).ready(function (){
-            
-        });
-    </script>
-@endsection
+{{--@section('script')--}}
+{{--    <script>--}}
+{{--        $(document).ready(function (){--}}
+
+
+{{--            $(document).on('click','.create_comment',function (e){--}}
+{{--                e.preventDefault();--}}
+
+{{--                var data = {--}}
+{{--                    'comm_body': $('.comment_body').val(),--}}
+{{--                    'post_id': $('.post_id').val()--}}
+
+{{--                }--}}
+{{--                console.log(data)--}}
+
+
+
+{{--                $.ajaxSetup({--}}
+{{--                    headers: {--}}
+{{--                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
+{{--                    }--}}
+{{--                });--}}
+
+
+{{--                $.ajax({--}}
+{{--                    type:'POST',--}}
+{{--                    url:'{{route('comm.store', $posts->id)}}',--}}
+{{--                    data:data,--}}
+{{--                    datatype:'json',--}}
+
+{{--                })--}}
+
+{{--            });--}}
+{{--        });--}}
+{{--    </script>--}}
+{{--@endsection--}}
 
 
 

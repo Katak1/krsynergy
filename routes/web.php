@@ -29,6 +29,11 @@ Route::group(['namespace' => 'Post'], function(){
     Route::post('/post/search', 'SearchController')->name('posts.search');
     Route::patch('/post/{id}', 'UpdateController')->name('posts.update');
     Route::delete('/post/{id}', 'DestroyController')->name('posts.destroy');
+    Route::group(['namespace' => 'Comment'],function(){
+        Route::post('post/show/{id}/comment', 'StoreController')->name('comm.store');
+        Route::delete('post/show/{id}/comment/{comid}', 'DestroyController')->name('comm.delete');
+
+    });
 });
 
 
